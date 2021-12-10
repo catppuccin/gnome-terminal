@@ -10,11 +10,13 @@
 
 ## Usage
 
-1. Clone this repository locally
-2. Open the app's settings
-3. Select `import theme` and browse to where you cloned Catppuccin
-4. Select it
+1. Make sure `dconf` (sometimes called `dconf-cli`) is installed on your system
+2. `git clone https://github.com/catppuccin/gnome-terminal`
+3. `cd gnome-terminal/ && ./install.sh "Terminal profile name"`
+	If no profile name is given, the script defaults to the "Default" profile
+4. Optionaly remove the repository: `cd .. && rm -rf gnome-terminal`
 
 ## 💝 Thanks to
 
-- [Human](https://github.com/catppuccin)
+- [Broccoli](https://github.com/broccoli5)
+

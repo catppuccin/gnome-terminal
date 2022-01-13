@@ -1,18 +1,26 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # This is a simplified version of the install script used by dracula theme
 # It does not work for for Gnome Terminal version < 3.8
 
-profile="${1:-"Default"}"
+profile="$1"
 
-dconfdir="/org/gnome/terminal/legacy/profiles:/"
+dconfdir="/org/gnome/terminal/legacy/profiles:"
+
+create_default_profile()
+{
+	profile_id="$(uuidgen)"
+	dconf write $dconfdir/default "'$profile_id'"
+	dconf write $dconfdir/list "['$profile_id']"
+	dconf write $dconfdir/:$profile_id/visible-name "'Default'"
+}
 
 get_uuid()
 {
 	name="$1"
-	for uuid in $(dconf list "$dconfdir")
+	for uuid in $(dconf list "$dconfdir/")
 	do
-		if [ "$(dconf read "$dconfdir$uuid"visible-name)" = "'$name'" ]
+		if [ "$(dconf read "$dconfdir/$uuid"visible-name)" = "'$name'" ]
 		then
 			echo "$uuid"
 		fi
@@ -22,13 +30,31 @@ get_uuid()
 }
 
 uuid="$(get_uuid "$profile")"
-if [ -z "$uuid" ]
+if [ -z "$uuid" ] && [ -z "$(dconf list "$dconfdir/")" ]
 then
-	echo "Profile: '$profile' does not exist -- ABORTING!"
+	cat <<- EOF
+	No profile was found, creating "Default" profile!
+	The following warning can be ignored
+
+	EOF
+	create_default_profile
+	profile="Default"
+	uuid="$(get_uuid "$profile")"
+elif [ -z "$uuid" ]
+then
+	cat <<- EOF
+	Profile: "$profile" does not exist!
+	Please use one of the following profiles:
+	EOF
+	for prf in $(dconf list "$dconfdir/")
+	do
+		dconf read "$dconfdir/$prf"visible-name
+	done
+	echo "Or create a new one"
 	exit 1
 fi
 
-cat <<- EOF
+cat << EOF
 Note that running this script will overwrite
 the colors in the selected profile ("$profile").
 There currently isn't a uninstall option.
@@ -40,15 +66,13 @@ EOF
 read confirmation
 if [ "$(echo $confirmation | tr '[:lower:]' '[:upper:]')" != YES ]
 then
-   echo "ERROR: Confirmation failed -- ABORTING!"
+   echo "Confirmation failed - ABORTING!"
    exit 1
 fi
-cat <<- EOF
--- Confirmation received --
---  Applying Catppuccin --
-EOF
 
-profile_path="$dconfdir$uuid"
+echo "Confirmation received - Applying Catppuccin"
+
+profile_path="$dconfdir/$uuid"
 
 # Make sure the profile is set to not use GTK theme colors
 dconf write "$profile_path"use-theme-colors "false"
@@ -73,4 +97,7 @@ dconf write "$profile_path"highlight-colors-set "false"
 # Set the color palette
 dconf write "$profile_path"palette "$(cat $PWD/palette)"
 
-echo "Catppuccin successfully set!"
+cat << EOF
+Catppuccin successfully applied!
+Please restart your terminal
+EOF

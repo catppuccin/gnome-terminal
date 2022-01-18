@@ -17,11 +17,14 @@
 
 ## Usage
 
-1. Clone this repository locally
-2. Open the app's settings
-3. Select `import theme` and browse to where you cloned Catppuccin
-4. Select it
+1. Make sure `dconf` (sometimes called `dconf-cli` or `dconf-editor`) is installed on your system
+2. `git clone https://github.com/catppuccin/gnome-terminal`
+3. `cd gnome-terminal/` 
+4. `./install.sh "Terminal profile name"`
+5. You can now remove the directory
+
+The script can be ran without any argumnets: It will list your profiles, if you have any, or create a profile named "Default" and apply the theme to it
 
 ## 💝 Thanks to
 
-- [Human](https://github.com/catppuccin)
+- [Broccoli](https://github.com/broccoli5)

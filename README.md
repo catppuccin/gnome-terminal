@@ -6,7 +6,7 @@
 </h3>
 
 <p align="center">
-    <a href="https://github.com/catppuccin/gnome-terminal/stargazers"><img src="https://img.shields.io/github/stars/catppuccin/gnome-terminal?colorA=363a4f&colorB=b7bdf8&style=for-the-badge style=for-the-badge"></a>
+    <a href="https://github.com/catppuccin/gnome-terminal/stargazers"><img src="https://img.shields.io/github/stars/catppuccin/gnome-terminal?colorA=363a4f&colorB=b7bdf8&style=for-the-badge style=for-the-badgestyle=for-the-badge"></a>
     <a href="https://github.com/catppuccin/gnome-terminal/issues"><img src="https://img.shields.io/github/issues/catppuccin/gnome-terminal?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
     <a href="https://github.com/catppuccin/gnome-terminal/contributors"><img src="https://img.shields.io/github/contributors/catppuccin/gnome-terminal?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>

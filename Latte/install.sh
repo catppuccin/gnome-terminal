@@ -82,7 +82,7 @@ dconf write "$profile_path"use-theme-colors "false"
 
 # Set foreground and background color
 dconf write "$profile_path"foreground-color "'#D7DAE0'"
-dconf write "$profile_path"background-color "'#1E1E2E'"
+dconf write "$profile_path"background-color "'#eff1f5'"
 
 # Set bold color to be same as foreground color
 # (I'm not really sure where this color appears)
@@ -90,8 +90,8 @@ dconf write "$profile_path"bold-color-same-as-fg "true"
 
 # Set cursor color
 dconf write "$profile_path"cursor-colors-set "true"
-dconf write "$profile_path"cursor-foreground-color "'#1E1E2E'"
-dconf write "$profile_path"cursor-background-color "'#F5E0DC'"
+dconf write "$profile_path"cursor-foreground-color "'#eff1f5'"
+dconf write "$profile_path"cursor-background-color "'#dc8a78'"
 
 # Set highlight color (highlight colors are reverse
 # of foreground and background by default)

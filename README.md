@@ -19,7 +19,7 @@
 
 1. Make sure `dconf` (sometimes called `dconf-cli` or `dconf-editor`) is installed on your system
 2. `git clone https://github.com/catppuccin/gnome-terminal`
-3. `cd gnome-terminal/` 
+3. `cd gnome-terminal/(which flavour your using)` 
 4. `./install.sh "Terminal profile name"` (you can create a profile by opening the Gnome Terminal >> ... >> Preferences >> Click on the `+` symbol)
 
 > Note: the script can be executed without any argumnets: it will list your profiles, if you have any, or create a profile named "Default" and apply the theme to it

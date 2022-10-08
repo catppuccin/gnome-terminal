@@ -17,16 +17,16 @@
 
 ## Usage
 
-1. Make sure `dconf` (sometimes called `dconf-cli` or `dconf-editor`) is installed on your system
-2. `git clone https://github.com/catppuccin/gnome-terminal`
-3. `cd gnome-terminal/` 
-4. `./install.sh "Terminal profile name"` (you can create a profile by opening the Gnome Terminal >> ... >> Preferences >> Click on the `+` symbol)
-
-> Note: the script can be executed without any argumnets: it will list your profiles, if you have any, or create a profile named "Default" and apply the theme to it
+1. Make sure the `dconf` and `python3` commands are available on your system.
+2. Execute the `./install.py` script, either after cloning the repository, or via `curl`:
+```bash
+curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3 -
+```
+3. In Gnome Terminal, open `Edit -> Preferences`, and enable the profile for the theme you want.
 
 ## 💝 Thanks to
 
-- [Broccoli](https://github.com/broccoli5)
+- [winston](https://github.com/nekowinston)
 
 &nbsp;
 

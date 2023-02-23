@@ -1,17 +1,32 @@
 #!/usr/bin/env python3
 import json
+import os
+import argparse
 from urllib.request import urlopen
 from subprocess import check_output as run
 from typing import Union
 
-try:
-    palette_repo = "https://raw.githubusercontent.com/catppuccin/palette"
-    commit_sha = "407fb8c7f0ddee55bd10999c9b7e78f8fec256c5"
-    res = urlopen(f"{palette_repo}/{commit_sha}/palette.json").read().decode("utf-8")
-    palette = json.loads(res)
-except Exception as e:
-    print(f"Error fetching the palette: {e}")
-    exit(1)
+arg_parser = argparse.ArgumentParser(prog='Catppuccin Theme - Gnome-Terminal Installation',
+                                     description='Installs the catppuccin theme for gnome-terminal')
+arg_parser.add_argument('-l', '--local', action='store')
+args = arg_parser.parse_args()
+
+if args.local is None:
+    try:
+        palette_repo = "https://raw.githubusercontent.com/catppuccin/palette"
+        commit_sha = "407fb8c7f0ddee55bd10999c9b7e78f8fec256c5"
+        res = urlopen(f"{palette_repo}/{commit_sha}/palette.json").read().decode("utf-8")
+        palette = json.loads(res)
+    except Exception as e:
+        print(f"Error fetching the palette: {e}")
+        exit(1)
+else:
+    try:
+        with open(args.local) as local_palette:
+            palette = json.load(local_palette)
+    except Exception as e:
+        print(f"Error fetching the palette: {e}")
+        exit(1)
 
 dconf_root = "/org/gnome/terminal/legacy/profiles:"
 # hardcoded uuids for each flavour

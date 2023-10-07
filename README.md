@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/res.webp"/>
+  <img src="assets/catwalk.webp"/>
 </p>
 
 ## Previews
@@ -37,9 +37,9 @@
 ## Usage
 
 1. Make sure the `dconf` and `python3` commands are available on your system.
-2. Execute the `./install.py` script, either after cloning the repository, or via `curl`:
+2. Execute the `install.py` script, either after cloning the repository, or via `curl`:
 ```bash
-curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3 -
+python3 <(curl -fsSL https://raw.githubusercontent.com/catppuccin/gnome-terminal/main/install.py)
 ```
 3. In Gnome Terminal, open `Edit -> Preferences`, and enable the profile for the theme you want.
 

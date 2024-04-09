@@ -69,7 +69,7 @@ for flavour, colours in palette.items():
     dconf_set(f":{uuid}/background-color", colours["base"]["hex"])
     dconf_set(f":{uuid}/foreground-color", colours["text"]["hex"])
     dconf_set(f":{uuid}/highlight-colors-set", True)
-    dconf_set(f":{uuid}/highlight-background-color", colours["base"]["hex"])
+    dconf_set(f":{uuid}/highlight-background-color", colours["rosewater"]["hex"])
     dconf_set(f":{uuid}/highlight-foreground-color", colours["surface2"]["hex"])
     dconf_set(f":{uuid}/cursor-colors-set", True)
     dconf_set(f":{uuid}/cursor-background-color", colours["rosewater"]["hex"])

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import json
-import os
 import argparse
 from urllib.request import urlopen
 from subprocess import check_output as run
@@ -29,6 +28,7 @@ else:
         exit(1)
 
 dconf_root = "/org/gnome/terminal/legacy/profiles:"
+gsettings_schema = "org.gnome.Terminal.ProfilesList"
 # hardcoded uuids for each flavour
 uuids = {
     "mocha": "95894cfd-82f7-430d-af6e-84d168bc34f5",
@@ -38,9 +38,9 @@ uuids = {
 }
 
 
-def dconf_get(path: str):
+def gsettings_get(key: str):
     return json.loads(
-        run(["dconf", "read", f"{dconf_root}/{path}"]).decode("utf-8").replace("'", '"')
+        run(["gsettings", "get", gsettings_schema, key]).decode("utf-8").replace("'", '"')
     )
 
 
@@ -59,7 +59,7 @@ def dconf_set(path: str, data: Union[dict, list, str, bool]) -> None:
 
 # handle the case where there are no profiles
 try:
-    profiles = dconf_get("list")
+    profiles = gsettings_get("list")
 except:
     profiles = []
 

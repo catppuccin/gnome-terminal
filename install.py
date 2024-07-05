@@ -44,7 +44,7 @@ def gsettings_get(key: str):
     )
 
 
-def gsettings_set_key(key: str, value: Union[dict, list, str, bool], path: str = "") -> None:
+def gsettings_set(key: str, value: Union[dict, list, str, bool], path: str = "") -> None:
     if type(value) in [dict, list]:
         value = json.dumps(value).replace('"', "'")
     elif type(value) == str:
@@ -68,15 +68,15 @@ except:
 
 for flavour, colours in palette.items():
     uuid = uuids[flavour]
-    gsettings_set_key("visible-name", f"Catppuccin {flavour.capitalize()}", f"{uuid}")
-    gsettings_set_key("background-color", colours["base"]["hex"], f"{uuid}")
-    gsettings_set_key("foreground-color", colours["text"]["hex"], f"{uuid}")
-    gsettings_set_key("highlight-colors-set", True, f"{uuid}")
-    gsettings_set_key("highlight-background-color", colours["rosewater"]["hex"], f"{uuid}")
-    gsettings_set_key("highlight-foreground-color", colours["surface2"]["hex"], f"{uuid}")
-    gsettings_set_key("cursor-colors-set", True, f"{uuid}")
-    gsettings_set_key("cursor-background-color", colours["rosewater"]["hex"], f"{uuid}")
-    gsettings_set_key("cursor-foreground-color", colours["base"]["hex"], f"{uuid}")
+    gsettings_set("visible-name", f"Catppuccin {flavour.capitalize()}", f"{uuid}")
+    gsettings_set("background-color", colours["base"]["hex"], f"{uuid}")
+    gsettings_set("foreground-color", colours["text"]["hex"], f"{uuid}")
+    gsettings_set("highlight-colors-set", True, f"{uuid}")
+    gsettings_set("highlight-background-color", colours["rosewater"]["hex"], f"{uuid}")
+    gsettings_set("highlight-foreground-color", colours["surface2"]["hex"], f"{uuid}")
+    gsettings_set("cursor-colors-set", True, f"{uuid}")
+    gsettings_set("cursor-background-color", colours["rosewater"]["hex"], f"{uuid}")
+    gsettings_set("cursor-foreground-color", colours["base"]["hex"], f"{uuid}")
 
     isLatte = flavour == "latte"
     colors = [
@@ -97,12 +97,12 @@ for flavour, colours in palette.items():
         colours["teal"],
         isLatte and colours["surface1"] or colours["subtext0"],
     ]
-    gsettings_set_key("use-theme-colors", False, f"{uuid}")
+    gsettings_set("use-theme-colors", False, f"{uuid}")
     # get only the hex key from each entry in colors
-    gsettings_set_key("palette", [color["hex"] for color in colors], f"{uuid}")
+    gsettings_set("palette", [color["hex"] for color in colors], f"{uuid}")
 
     if uuid not in profiles:
         profiles.append(uuid)
 
-gsettings_set_key("list", profiles)
+gsettings_set("list", profiles)
 print("All profiles installed.")

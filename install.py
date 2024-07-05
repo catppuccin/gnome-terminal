@@ -27,7 +27,7 @@ else:
         print(f"Error fetching the palette: {e}")
         exit(1)
 
-dconf_root = "/org/gnome/terminal/legacy/profiles:"
+gsettings_path_base = "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/"
 gsettings_schema = "org.gnome.Terminal.ProfilesList"
 # hardcoded uuids for each flavour
 uuids = {
@@ -44,17 +44,20 @@ def gsettings_get(key: str):
     )
 
 
-def dconf_set(path: str, data: Union[dict, list, str, bool]) -> None:
-    if type(data) in [dict, list]:
-        data = json.dumps(data).replace('"', "'")
-    elif type(data) == str:
-        data = f"'{data}'"
-    elif type(data) == bool:
-        data = str(data).lower()
+def gsettings_set_key(key: str, value: Union[dict, list, str, bool], path: str = "") -> None:
+    if type(value) in [dict, list]:
+        value = json.dumps(value).replace('"', "'")
+    elif type(value) == str:
+        value = f"'{value}'"
+    elif type(value) == bool:
+        value = str(value).lower()
 
-    print(f"Setting {path} to {data}")
-
-    run(["dconf", "write", f"{dconf_root}/{path}", f"{data}"])
+    if path:
+        print(f"Setting {path}/ {key} to {value}")
+        run(["gsettings", "set", f"{gsettings_path_base}:{path}/", f"{key}", f"{value}"])
+    else:
+        print(f"Setting {key} to {value}")
+        run(["gsettings", "set", f"{gsettings_schema}", f"{key}", f"{value}"])
 
 
 # handle the case where there are no profiles
@@ -65,15 +68,15 @@ except:
 
 for flavour, colours in palette.items():
     uuid = uuids[flavour]
-    dconf_set(f":{uuid}/visible-name", f"Catppuccin {flavour.capitalize()}")
-    dconf_set(f":{uuid}/background-color", colours["base"]["hex"])
-    dconf_set(f":{uuid}/foreground-color", colours["text"]["hex"])
-    dconf_set(f":{uuid}/highlight-colors-set", True)
-    dconf_set(f":{uuid}/highlight-background-color", colours["rosewater"]["hex"])
-    dconf_set(f":{uuid}/highlight-foreground-color", colours["surface2"]["hex"])
-    dconf_set(f":{uuid}/cursor-colors-set", True)
-    dconf_set(f":{uuid}/cursor-background-color", colours["rosewater"]["hex"])
-    dconf_set(f":{uuid}/cursor-foreground-color", colours["base"]["hex"])
+    gsettings_set_key("visible-name", f"Catppuccin {flavour.capitalize()}", f"{uuid}")
+    gsettings_set_key("background-color", colours["base"]["hex"], f"{uuid}")
+    gsettings_set_key("foreground-color", colours["text"]["hex"], f"{uuid}")
+    gsettings_set_key("highlight-colors-set", True, f"{uuid}")
+    gsettings_set_key("highlight-background-color", colours["rosewater"]["hex"], f"{uuid}")
+    gsettings_set_key("highlight-foreground-color", colours["surface2"]["hex"], f"{uuid}")
+    gsettings_set_key("cursor-colors-set", True, f"{uuid}")
+    gsettings_set_key("cursor-background-color", colours["rosewater"]["hex"], f"{uuid}")
+    gsettings_set_key("cursor-foreground-color", colours["base"]["hex"], f"{uuid}")
 
     isLatte = flavour == "latte"
     colors = [
@@ -94,12 +97,12 @@ for flavour, colours in palette.items():
         colours["teal"],
         isLatte and colours["surface1"] or colours["subtext0"],
     ]
-    dconf_set(f":{uuid}/use-theme-colors", False)
+    gsettings_set_key("use-theme-colors", False, f"{uuid}")
     # get only the hex key from each entry in colors
-    dconf_set(f":{uuid}/palette", [color["hex"] for color in colors])
+    gsettings_set_key("palette", [color["hex"] for color in colors], f"{uuid}")
 
     if uuid not in profiles:
         profiles.append(uuid)
 
-dconf_set("list", profiles)
+gsettings_set_key("list", profiles)
 print("All profiles installed.")

@@ -36,7 +36,7 @@
 
 ## Usage
 
-1. Make sure the `dconf` and `python3` commands are available on your system.
+1. Make sure the `gsettings` and `python3` commands are available on your system.
 2. Execute the `./install.py` script, either after cloning the repository, or via `curl`:
 ```bash
 curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3 -

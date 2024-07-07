@@ -43,6 +43,11 @@ curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/insta
 ```
 3. In Gnome Terminal, open `Edit -> Preferences`, and enable the profile for the theme you want.
 
+### Uninstall
+
+1. Make sure the `gsettings` and `python3` commands are available on your system.
+2. Execute the `./uninstall.py` script after cloning the repository.
+
 ## 💝 Thanks to
 
 - [winston](https://github.com/nekowinston)

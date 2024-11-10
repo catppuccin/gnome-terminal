@@ -3,11 +3,15 @@ import json
 import argparse
 from subprocess import check_output as run
 
-arg_parser = argparse.ArgumentParser(prog='Catppuccin Theme - Gnome-Terminal Uninstallation',
-                                     description='Uninstalls the catppuccin theme for gnome-terminal')
+arg_parser = argparse.ArgumentParser(
+    prog="Catppuccin Theme - Gnome-Terminal Uninstallation",
+    description="Uninstalls the Catppuccin theme for gnome-terminal",
+)
 args = arg_parser.parse_args()
 
-gsettings_path_base = "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/"
+gsettings_path_base = (
+    "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/"
+)
 gsettings_schema = "org.gnome.Terminal.ProfilesList"
 # hardcoded uuids for each flavour
 uuids = {
@@ -20,7 +24,9 @@ uuids = {
 
 def gsettings_get(key: str):
     return json.loads(
-        run(["gsettings", "get", gsettings_schema, key]).decode("utf-8").replace("'", '"')
+        run(["gsettings", "get", gsettings_schema, key])
+        .decode("utf-8")
+        .replace("'", '"')
     )
 
 
